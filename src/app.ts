@@ -1,21 +1,17 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import healthRoutes from './routes/health'
-import authRoutes from './modules/auth/auth.route'
-import userRouter from './modules/users/user.route';
+import healthRoutes from './routes/health.js'
+import authRoutes from './modules/auth/auth.route.js'
+import userRoutes from './modules/users/user.route.js'
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-// Health check
+// API routes
 app.use('/api', healthRoutes);
-
-// Auth
 app.use('/api', authRoutes);
-
-// Users
-app.use('/api', userRouter);
+app.use('/api', userRoutes);
 
 export default app;
