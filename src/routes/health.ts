@@ -4,7 +4,7 @@ import { sql } from "drizzle-orm";
 
 const router = Router();
 
-router.get("/health/db", async (_req, res) => {
+router.get("/health", async (_req, res) => {
   try {
     // Minimal, safe DB ping
     await db.execute(sql`SELECT 1`);
