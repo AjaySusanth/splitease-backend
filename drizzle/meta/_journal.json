@@ -8,6 +8,13 @@
       "when": 1764341146342,
       "tag": "0000_bizarre_galactus",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1764407897722,
+      "tag": "0001_massive_luminals",
+      "breakpoints": true
     }
   ]
 }
