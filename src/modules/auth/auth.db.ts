@@ -1,6 +1,7 @@
 // src/modules/auth/auth.db.ts
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-
+import { relations } from "drizzle-orm";
+import { groups,groupMembers } from "../groups/groups.db";
 // -------------------------
 // Users Table
 // -------------------------
@@ -24,6 +25,17 @@ export const users = pgTable("users", {
 });
 
 // -------------------------
+// Users Relations
+// -------------------------
+export const usersRelations = relations(users, ({ many }) => ({
+  // Define relations for groups owned by the user
+  ownedGroups: many(groups),
+
+  // Define relations for group memberships of the user
+  groupMemberships: many(groupMembers),
+}));
+
+// -------------------------
 // Refresh Tokens Table
 // -------------------------
 export const refreshTokens = pgTable("refresh_tokens", {
@@ -45,3 +57,13 @@ export const refreshTokens = pgTable("refresh_tokens", {
     .defaultNow()
     .notNull(),
 });
+
+
+// Refresh Tokens Relations
+// -------------------------
+export const refreshTokensRelations = relations(refreshTokens, ({ one }) => ({
+  user: one(users, {
+    fields: [refreshTokens.userId],
+    references: [users.id],
+  }),
+}));
