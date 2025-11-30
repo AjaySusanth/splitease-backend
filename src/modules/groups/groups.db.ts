@@ -7,6 +7,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { users } from "../auth/auth.db"; // import without extension for drizzle-kit (CJS/TS) compatibility
+import { expenses } from "../expenses/expenses.db";
 
 export const groups = pgTable("groups", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -31,6 +32,8 @@ export const groupsRelations = relations(groups, ({ one, many }) => ({
     fields: [groups.ownerId],
     references: [users.id],
   }),
+
+  expenses: many(expenses),
 }));
 
 export const groupMembers = pgTable(

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { groupsController } from "./groups.controller.js";
 import { authMiddleware } from "../../middleware/auth.middleware.js";
+import expenseRoutes from '../expenses/expenses.route.js'
 
 const router = Router();
 
@@ -37,5 +38,8 @@ router.get("/:groupId", authMiddleware, groupsController.getGroup);
 // GET /groups
 // ---------------------------------------------------------
 router.get("/", authMiddleware, groupsController.getMyGroups);
+
+router.use("/:groupId/expenses", expenseRoutes);
+
 
 export default router;
