@@ -2,6 +2,7 @@
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { groups,groupMembers } from "../groups/groups.db";
+import { expenses,expenseSplits } from "../expenses/expenses.db";
 // -------------------------
 // Users Table
 // -------------------------
@@ -33,7 +34,14 @@ export const usersRelations = relations(users, ({ many }) => ({
 
   // Define relations for group memberships of the user
   groupMemberships: many(groupMembers),
+
+  paidExpenses: many(expenses),
+  // New: Splits where this user is involved
+  involvedInSplits: many(expenseSplits),
 }));
+
+
+
 
 // -------------------------
 // Refresh Tokens Table
